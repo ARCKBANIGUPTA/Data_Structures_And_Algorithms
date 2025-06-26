@@ -28,6 +28,10 @@ public class QueueUsingStack {
             }
         }
         public static int remove(){
+            if(s1.isEmpty()){
+                System.out.println("Queue is empty");
+                return -1;
+            }
             int val = s1.pop();
             return val;
         }
