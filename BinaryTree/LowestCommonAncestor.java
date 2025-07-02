@@ -56,10 +56,10 @@ public class LowestCommonAncestor {
         Node leftlca=LCA2(root.left,n1,n2);
         Node rightlca =LCA2(root.right,n1,n2);
 
-        if(rightlca ==null && leftlca!=null){
+        if(rightlca ==null ){
             return leftlca;
         }
-        if(leftlca==null && rightlca!=null){
+        if(leftlca==null ){
             return rightlca;
         }
         return root;
@@ -77,7 +77,7 @@ public class LowestCommonAncestor {
         root.left.left=new Node(4);
         root.left.right=new Node(5);
         root.right.right=new Node(6);
-        System.out.println("Approach 1: "+LCA1(root, 4, 6).data);
-        System.out.println("Approach 2: "+LCA2(root, 4, 6).data);
+        System.out.println("Approach 1: "+LCA1(root, 4, 5).data);
+        System.out.println("Approach 2: "+LCA2(root, 4, 5).data);
     }
 }
