@@ -1,5 +1,6 @@
 import java.util.*;
 public class LowestCommonAncestor {
+    //time complexity is -> O(n)
      static class Node{
         int data;
         Node right;
@@ -44,6 +45,25 @@ public class LowestCommonAncestor {
         Node lca = path1.get(i-1);
         return lca;
     }
+    public static Node LCA2(Node root,int n1,int n2){
+        if(root==null){
+            return null;
+        }
+        if(root.data==n1 || root.data==n2){
+            return root;
+        }
+
+        Node leftlca=LCA2(root.left,n1,n2);
+        Node rightlca =LCA2(root.right,n1,n2);
+
+        if(rightlca ==null && leftlca!=null){
+            return leftlca;
+        }
+        if(leftlca==null && rightlca!=null){
+            return rightlca;
+        }
+        return root;
+    }
     public static void main(String[] args) {
                 //     1
                 //    / \
@@ -57,6 +77,7 @@ public class LowestCommonAncestor {
         root.left.left=new Node(4);
         root.left.right=new Node(5);
         root.right.right=new Node(6);
-        System.out.println(LCA1(root, 4, 6).data);
+        System.out.println("Approach 1: "+LCA1(root, 4, 6).data);
+        System.out.println("Approach 2: "+LCA2(root, 4, 6).data);
     }
 }
