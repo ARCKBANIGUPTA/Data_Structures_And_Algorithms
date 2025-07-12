@@ -35,6 +35,7 @@ public class ValidateBST {
         else if(max!=null && root.data>=max.data){
             return false;
         }
+               //left subtree call              right subtree call
         return isValid(root.left, min, root) && isValid(root.right, root, max);
     }
     public static void main(String[] args) {
