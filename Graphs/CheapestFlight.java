@@ -22,7 +22,6 @@ public class CheapestFlight {
         }
     }
 
-
     public static void creategraph(ArrayList<Edge> graph[],int flights[][]){
         for(int i=0;i<graph.length;i++){
             graph[i] = new ArrayList<>();
@@ -34,6 +33,7 @@ public class CheapestFlight {
             graph[src].add(new Edge(src,dest,wt));
         }
     }
+
     public static int cheapestRoute(ArrayList<Edge> graph[],int n,int flights[][],int src,int dest,int k){
         int dist[] = new int[n];
         for(int i=0;i<n;i++){
@@ -41,7 +41,9 @@ public class CheapestFlight {
                 dist[i] = Integer.MAX_VALUE;
             }
         }
-        Queue<Info> q = new Linkedlist<>();
+        dist[src] = 0; 
+
+        Queue<Info> q = new LinkedList<>(); 
         q.add(new Info(src,0,0));
         while(!q.isEmpty()){
             Info curr = q.remove();
@@ -53,17 +55,32 @@ public class CheapestFlight {
                 int u = e.src;
                 int v = e.dest;
                 int wt = e.wt;
-                if(dist[u] != )
+                if(dist[u] != Integer.MAX_VALUE && dist[u]+wt<dist[v] && curr.stops<=k){
+                    dist[v]=dist[u]+wt;
+                    q.add(new Info(v,dist[v],curr.stops+1));
+                }
             }
         }
+        if(dist[dest]==Integer.MAX_VALUE){
+            return -1;
+        }
+        return dist[dest];
     }
+
     public static void main(String[] args) {
         int V=4;
-        int flights = {{0,1,100},{1,2,100},{2,0,100},{1,3,600},{2,3,200}};
+        int[][] flights = new int[][] { // fix array initialization
+            {0,1,100},
+            {1,2,100},
+            {2,0,100},
+            {1,3,600},
+            {2,3,200}
+        };
         int src = 0;
         int dst = 3;
         int k=1;
         ArrayList<Edge> graph[] = new ArrayList[V];
         creategraph(graph, flights);
+        System.out.println(cheapestRoute(graph, V, flights,src, dst, k));
     }
 }
